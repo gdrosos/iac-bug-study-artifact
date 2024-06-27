@@ -17,7 +17,6 @@ Understanding Faults in Infrastructure as Code Ecosystems".
   - [Setup](#setup)
   - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
   - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
-- [Important Note](#important-note)
   - [Downloading Bug \& Fixes from Sources (Optional)](#downloading-bug--fixes-from-sources-optional)
     - [Collecting Puppet Module Repositories](#collecting-puppet-module-repositories)
     - [Collecting Chef Cookbook Repositories](#collecting-chef-cookbook-repositories)
@@ -207,15 +206,6 @@ After executing the command, you will be able to enter the home directory
 
 
 This setup uses volume mounting (-v) to ensure that scripts, data, and figures directories are persisted outside of the container for ease of access and modification on your local machine (e.g. they will not be lost upon the container's exit).
-
-# Important Note
-In order to run some parts of our methodology, you will need a Github access token (see [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)).
-Once you obtain it,
-please assign it to a shell variable named `GH_TOKEN`.
-
-```bash
-export GH_TOKEN=<your Github access token>
-```
 
 ## Downloading Bug & Fixes from Sources (Optional)
 
