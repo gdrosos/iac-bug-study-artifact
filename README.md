@@ -76,11 +76,6 @@ To install and utilize the artifact, the following requirements must be met:
 - **Network Connection**: 
   - A stable internet connection is essential as some steps in the methodology require substantial downloading.
 
-- **Memory**: 
-  - At least 2 GB of free main memory.
-
-- **Disk Space (Optional)**: 
-  - A minimum of 20 MB of available disk space is required
 - **GitHub Access Token**: 
   - A GitHub access token is needed for cloning certain public repositories as part of the methodology. Instructions for creating a token are available [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
