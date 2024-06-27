@@ -171,29 +171,6 @@ def plot_diagram(dataframe, output):
     plt.savefig(output, format='pdf', bbox_inches='tight', pad_inches=0, dpi=300)
 
 def plot_not_managed(dataframe, output):
-    dataframe = dataframe[dataframe["System state"] == "Unmanaged state"]
-    file_count = 0
-    service_count = 0
-    db_count = 0
-    host_count = 0
-    package_count = 0
-    mult_exec_cnt=0
-    ds_cnt=0
-    for i in dataframe['System State Observations']:
-        requirements = str(i).split(";")    
-        for x in requirements:
-            if "file" in x:
-                file_count+=1
-            elif 'service' in x:
-                service_count+=1
-            elif 'host' in x:
-                host_count+=1
-            elif 'package' in x:
-                package_count+=1
-            else:
-                # print(x)
-                ds_cnt+=1
-
     maps = {
         "package": "Package",
         "file": "File",
@@ -206,35 +183,29 @@ def plot_not_managed(dataframe, output):
         "multiple run": "Other",
         "PL": "Runtime",
         "host": "Remote host",
-        # "SSH configuration": "Remote host",
+        "multiple alternatives": "File",
+        "multiple": "Other",
     }
 
-
     elements = defaultdict(lambda: 0)
-    for i in dataframe['System State Observations']:
-        requirements = str(i).split(";")   
+    for i in dataframe['System State Observations'].dropna():
+        requirements = i.replace("; ", ";").split(";")
         freqs = set()
         for x in requirements:
             if x:
-                flag = False
                 for k, v in maps.items():
                     if k in x or k == x:
                         freqs.add(v)
-                        flag = True
-                if not flag:
-                    print(x)
-            for k in freqs:
-                elements[k] += 1
-    print (elements)
+        for k in freqs:
+            elements[k] += 1
     data = {
         'Requirements': ['File', 'Service', 'Remote host', 'Other', 'Package', "IaC Runtime"],
-        'Frequency': [file_count, service_count, host_count, ds_cnt, package_count, 19]
+        'Frequency': [elements["File"], elements["Service"], elements["Remote host"], elements["Other"], elements["Package"], elements["Runtime"]]
     }
     df2 = pd.DataFrame(data)
     df2['Frequency'] = df2['Frequency'].astype(int)
     df_sorted = df2.sort_values('Frequency', ascending=False)
-    df_sorted['Percentage'] = df_sorted.apply(lambda row: (row['Frequency'] /119) * 100, axis=1).map(lambda x: '{:.2f}%'.format(x))
-    print("Distribution of system state requirements of bugs whose system state is not managed by code:")
+    print("Distribution of system state requirements of state dependent bugs:")
     print('-'*40)
     print(df_sorted.to_string(index=False))
     plt.subplots_adjust(bottom=0.1, top=0.9)

@@ -456,26 +456,26 @@ Configuration unit Unmanaged state         95     44.81%
        IaC program Unmanaged state         24     16.22%
 ```
 
-To produce the second Plot of Figure 10, which represents the system state requirements of `State not Managed by Code` bugs,
+To produce the second Plot of Figure 10, which represents the system state requirements of state dependent bugs,
 run:
 
 ```bash
-python scripts/rq3.py data/bugs.csv --output figures/system_state_not_managed.pdf --not_managed
+python scripts/rq3.py data/bugs.csv --output figures/system_state.pdf --not_managed
 ```
 
-The above command produces the figure `figures/system_state_not_managed.pdf` (Figure 10b)
+The above command produces the figure `figures/system_state.pdf` (Figure 10b)
 and prints the following table in the standard output:
 
 ```
-Distribution of system state requirements of bugs whose system state is not managed by code:
+Distribution of system state requirements of state dependent bugs:
 ----------------------------------------
-Requirements  Frequency Percentage
-     Service         79     66.39%
-        File         60     50.42%
-       Other         51     42.86%
-     Package         33     27.73%
- IaC Runtime         19     15.97%
- Remote host          9      7.56%
+Requirements  Frequency
+     Service         79
+        File         60
+       Other         51
+     Package         33
+ IaC Runtime         19
+ Remote host          9
 ```
 
 Moreover, to produce Table 3, which depicts the five most frequent input types appearing in the bug-triggering test cases, simply run:
