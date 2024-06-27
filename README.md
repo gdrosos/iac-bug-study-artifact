@@ -1,1 +1,0 @@
-# iac-bug-study-artifact
