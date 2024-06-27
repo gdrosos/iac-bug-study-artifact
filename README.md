@@ -244,9 +244,9 @@ pip3 install -r requirements.txt
 
 ## Downloading Bug & Fixes from Sources (Optional)
 
-In this section we provide instructions on collecting the IaC bugs and their fixes which correspond to Section 3.1 of our paper.
+In this section, we provide instructions on collecting the IaC bugs and their fixes which correspond to Section 3.1 of our paper. The data already exist in the `data/collection` directory (see [Bug Collection Dataset](#bug-collection-dataset) for dataset details), however bellow we describe how you can obtain this dataset from scratch, and store the corresponding files in a new directory (e.g. ``data/collection_new`).s
 
-**NOTE #1**: This step requires approximatelly 24 hours. For this reason, we already provide you with the "pre-baked" data of the selected bugs used in our study, along with the proposed categorization (see the directory `data/`). However, if you still want to re-fetch the bugs from the corresponding sources and create the initial bug dataset on your own, please continue reading this section. Otherwise, you can go directly to the next Section ([Quantitative Analysis](#quantitative-analysis-section-32-optional)).
+**NOTE #1**: This step requires approximately 24 hours. For this reason, we already provide you with the "pre-baked" data of the selected bugs used in our study, along with the proposed categorization (see the directory `data/`). However, if you still want to re-fetch the bugs from the corresponding sources and create the initial bug dataset on your own, please continue reading this section. Otherwise, you can go directly to the next Section ([Quantitative Analysis](#quantitative-analysis-section-32-optional)).
 
 **NOTE #2**: The generated dataset may contain more bugs than those described in the paper because new bugs might have been fixed since our initial data collection.
 
