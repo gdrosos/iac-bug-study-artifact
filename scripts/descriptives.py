@@ -36,6 +36,8 @@ def process_directory(directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
             filepath = os.path.join(root, file)
+            if "collection_new" in filepath:
+                continue
             if file == 'quantitative_metrics.csv':
                 oldest_issue, most_recent_issue = read_and_process_rq4_csv(filepath)
             elif file == 'bugs.csv':
