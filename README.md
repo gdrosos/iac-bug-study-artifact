@@ -14,16 +14,21 @@ Understanding Faults in Infrastructure as Code Ecosystems".
 - [Getting Started](#getting-started)
 - [Bug Collection Dataset](#bug-collection-dataset)
 - [Selected Bugs](#selected-bugs)
-- [Step-by-Step Instructions](#step-by-step-instructions)
+- [Getting Started](#getting-started-1)
+  - [Setup](#setup)
+  - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
+  - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
+- [Important Note](#important-note)
   - [Downloading Bug \& Fixes from Sources (Optional)](#downloading-bug--fixes-from-sources-optional)
-    - [Collecting  Puppet Module  Repositories](#collecting--puppet-module--repositories)
-    - [Collecting  Chef Cookbook  Repositories](#collecting--chef-cookbook--repositories)
-    - [Collecting  Ansible Collection Repositories](#collecting--ansible-collection-repositories)
-    - [Collecting  Ansible Role Repositories](#collecting--ansible-role-repositories)
+    - [Collecting Puppet Module Repositories](#collecting-puppet-module-repositories)
+    - [Collecting Chef Cookbook Repositories](#collecting-chef-cookbook-repositories)
+    - [Collecting Ansible Collection Repositories](#collecting-ansible-collection-repositories)
+    - [Collecting Ansible Role Repositories](#collecting-ansible-role-repositories)
     - [Collecting Bugs from GitHub Repositories](#collecting-bugs-from-github-repositories)
-    - [Collecting  Puppet Bugs from Jira](#collecting--puppet-bugs-from-jira)
+    - [Collecting Puppet Bugs from Jira](#collecting-puppet-bugs-from-jira)
   - [Quantitative Analysis (Section 3.2) (Optional)](#quantitative-analysis-section-32-optional)
-  - [Bug Collection Descriptives (Section 3.1)](#bug-collection-descriptives-section-31)
+- [Step-by-Step Instructions](#step-by-step-instructions)
+  - [Collecting Bugs \& Fixes (Section 3.1)](#collecting-bugs--fixes-section-31)
   - [RQ1: Symptoms (Section 4.1)](#rq1-symptoms-section-41)
   - [RQ2: Root Causes (Section 4.2)](#rq2-root-causes-section-42)
   - [RQ3: System State Requirements and Input Characteristics (Section 4.3)](#rq3-system-state-requirements-and-input-characteristics-section-43)
@@ -134,15 +139,93 @@ which has the following structure:
   * `Template Unit Files Count`: The number of template unit files affected by the fix.
   * `Template Unit Lines Added`: The count of lines added to template unit files as part of the fix.
   * `Template Unit Lines Removed`: The number of lines removed from template unit files during the fix.
-  
-# Step-by-Step Instructions
-
-In the following section, we provide instructions
-for reproducing the results
-presented in the paper using the data coming from the `data/` directory.
 
 
 
+# Getting Started
+
+
+This section includes documentation and instruction in order to (1) setup the necessary environment in order to run our scripts, (2)  re-collecting  IaC bugs from the issue trackers of the projects of each ecosystem, namely Ansible, Chef and Puppet and (3) run the wualitative analysis of the sampled 360 bugs to produce the metrics sued to aanswer RQ4.
+
+First, obtain the artifact by cloning the repository and navigating to the artifact's root directory:
+
+```bash
+   git clone https://github.com/gdrosos/iac-bug-study-artifact ~/iac-bug-study-artifact
+   cd ~/iac-bug-study-artifact
+```
+
+## Setup
+
+To replicate the environment needed to run our  scripts, you can choose between setting up a virtual environment directly on Ubuntu/Debian or using Docker, which is recommended.
+
+
+## Option1: Ubuntu/Debian Installation
+
+You need to install some packages through  `apt`  to run the
+experiments of this artifact.
+First, install git, python, pip and python3-venv:
+
+```bash
+sudo apt update
+sudo apt install git python3 python3-pip python3-venv
+```
+
+**Important Note**
+For convenience, throughout the documentation and scripts, we use the standard python command instead of python3. To ensure compatibility, please create a symbolic link to point python to python3 by running the following command:
+```bash
+ln -s /usr/bin/python3 /usr/bin/python
+```
+
+You also need to install some Python packages.
+In a Python `virtualenv` run the following:
+```bash
+python -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
+```
+
+## Option2: Docker Image Installation (Recommended)
+
+Use this option if you prefer a containerized environment or are not using an Ubuntu/Debian operating system.
+We provide a `Dockerfile` to build an image that contains:
+
+* The necessary `apt` packages (e.g., `git`, `python3`, `pip`) for running
+  our experiments.
+* The necessary Python packages (declared in the `requirements.txt` file).
+* A user named `user` with `sudo` privileges.
+
+To build the Docker image named `iac-bug-study-artifact` from source,
+run the following command (estimated running time: ~5 minutes):
+
+```bash
+docker build -t iac-bug-study-artifact .
+```
+Then, you can run  the docker container by executing the following command:
+
+```bash
+docker run -it --rm \
+    -v $(pwd)/scripts:/home/user/scripts \
+    -v $(pwd)/data:/home/user/data \
+    -v $(pwd)/figures:/home/user/figures \
+    iac-bug-study-artifact /bin/bash
+```
+After executing the command, you will be able to enter the home directory
+(i.e., `/home/user`). This directory contains:
+1) the scripts for reproducing the results of the paper (see `scripts/`),
+2)  the data of our bug study (see `data/`),
+3) a dedicated directory for storing the generated figures (see `figures/`),
+
+
+This setup uses volume mounting (-v) to ensure that scripts, data, and figures directories are persisted outside of the container for ease of access and modification on your local machine (e.g. they will not be lost upon the container's exit).
+
+# Important Note
+In order to run some parts of our methodology, you will need a Github access token (see [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)).
+Once you obtain it,
+please assign it to a shell variable named `GH_TOKEN`.
+
+```bash
+export GH_TOKEN=<your Github access token>
+```
 
 ## Downloading Bug & Fixes from Sources (Optional)
 
@@ -183,7 +266,7 @@ scripts/fetch/fetch_fixed_puppet_jira_bugs.py
 The first four scripts retrieve the URLs of GitHub repositories containing the bugs, while the last two obtain the bugs.
 Below, we provide additional details regarding each script.
 
-### Collecting  Puppet Module  Repositories
+### Collecting Puppet Module Repositories
 
 ```
 python scripts/fetch/fetch_puppet_repos.py data/collection_new/puppet_urls.csv
@@ -191,7 +274,7 @@ python scripts/fetch/fetch_puppet_repos.py data/collection_new/puppet_urls.csv
 
 This script queries the Puppet Forge REST-API ([https://forgeapi.puppet.com/v3/modules](https://forgeapi.puppet.com/v3/modules)) to fetch Puppet modules with their corresponding GitHub URLs and stores them in a CSV file named `data/collection_new/puppet_urls.csv`.
 
-### Collecting  Chef Cookbook  Repositories
+### Collecting Chef Cookbook Repositories
 
 ```
 python scripts/fetch/fetch_chef_repos.py data/collection_new/chef_urls.csv
@@ -200,7 +283,7 @@ python scripts/fetch/fetch_chef_repos.py data/collection_new/chef_urls.csv
 This script queries the Supermarket Chef REST-API ([https://supermarket.chef.io/api/v1/cookbooks/](https://supermarket.chef.io/api/v1/cookbooks/)) to fetch Chef cookbooks with their corresponding repository URL and stores them in a CSV file named `data/collection_new/chef_urls.csv`.
 
 
-### Collecting  Ansible Collection Repositories
+### Collecting Ansible Collection Repositories
 
 
 ```
@@ -209,7 +292,7 @@ python scripts/fetch/fetch_ansible_repos.py data/collection_new/ansible_urls.csv
 This script queries the Ansible Galaxy REST-API ([https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/index/](https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/index/)) to fetch Ansible collections with their corresponding repository URL and stores them in a CSV file named `data/collection_new/ansible_urls.csv`.
 
 
-### Collecting  Ansible Role Repositories
+### Collecting Ansible Role Repositories
 
 
 ```
@@ -239,7 +322,7 @@ data/collection_new/bugs/puppet_bugs.csv  $GH_TOKEN
 ```
 
 
-### Collecting  Puppet Bugs from Jira
+### Collecting Puppet Bugs from Jira
 
 ```
 python scripts/fetch/fetch_fixed_puppet_jira_bugs.py $BASE_DIR/bugs/puppet_jira_bugs.csv
@@ -256,7 +339,7 @@ It then filters out issues that do not have at least one comment containing a UR
 ## Quantitative Analysis (Section 3.2) (Optional)
 
 Optionally, you can run the quantitative analysis of the 360 sampled bugs to produce the `data/quantitative_metrics.csv` which is used to answer RQ4 (See Section [Selected Bugs](#selected-bugs) for file contents).
-Simply run (Estimated Run Time: 1 hour, depending on current user GitHub API Rate Limit):
+Simply run (Estimated Run Time: ~8 minutes, can increase depending on current GitHub API Rate Limit of given user):
 
 ```bash
 python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN \
@@ -267,7 +350,16 @@ Initially, the script retrieves the issue creation and resolution dates for each
 
 In the remaining Sections, we will use the "pre-baked" data to produce the data shown in the Tables & Figures of the paper.
 
- ## Bug Collection Descriptives (Section 3.1)
+
+# Step-by-Step Instructions
+
+In the following section, we provide instructions
+for reproducing the results
+presented in the paper using the data coming from the `data/` directory.
+
+
+
+ ## Collecting Bugs & Fixes (Section 3.1)
 
 Run this script to produce the descriptive statistics of our bug collection and analysis,
 and more specifically the data shown in Table 2.
