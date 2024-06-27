@@ -11,6 +11,7 @@ Understanding Faults in Infrastructure as Code Ecosystems".
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
+- [Hardware Dependencies](#hardware-dependencies)
 - [Bug Collection Dataset](#bug-collection-dataset)
 - [Selected Bugs](#selected-bugs)
 - [Getting Started](#getting-started)
@@ -52,7 +53,7 @@ to assemble the dataset of IaC bugs
 as outlined in Section 3.1 of our study
 (that is, this directory includes the code for our repository collection gathering
 and bug collection stages).
-* `data/`: This is the "pre-baked" dataset of the 360 IaC bugs
+* `data/`: This directory contains the initial bug dataset  of the data collection phase as well as the "pre-baked" dataset of the 360 IaC bugs
   under study.
 * `figures/`: A directory which is going to store the produced paper figures.
 * `requirements.txt`: A textual file declaring the required PyPI libraries to run our analysis
@@ -60,10 +61,40 @@ and bug collection stages).
 
 # Requirements
 
+To install and utilize the artifact, the following requirements must be met:
+- **Docker**: 
+  - We recommend using Docker to ensure a consistent and reproducible environment across all platforms. The provided `Dockerfile` will help you set up the necessary environment. This artifact has been tested with Docker version 24.
 
-* An installation of Python version **3.8+**.
-* (Optionally) A GitHub access token (see [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for interacting with the GitHub API. You will need this access token only if you decide to execute the qualitative analysis of our artifact.
+- **Operating System**:
+  - If Docker is not an option, the artifact has been tested and confirmed to work on Unix-like operating systems, specifically Ubuntu and Debian.
 
+- **Version Control**: 
+  - Git must be installed.
+
+- **Programming Language**: 
+  - Python 3.8 or higher along with PIP.
+- **Network Connection**: 
+  - A stable internet connection is essential as some steps in the methodology require substantial downloading.
+
+- **Memory**: 
+  - At least 2 GB of free main memory.
+
+- **Disk Space (Optional)**: 
+  - A minimum of 20 MB of available disk space is required
+- **GitHub Access Token**: 
+  - A GitHub access token is needed for cloning certain public repositories as part of the methodology. Instructions for creating a token are available [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+
+
+
+# Hardware Dependencies
+Moreover, the following hardware requirements should be met:
+
+- **Memory**: 
+  - At least 2 GB of free main memory.
+
+- **Disk Space (Optional)**: 
+  - A minimum of 20 MB of available disk space is required
+  
 # Bug Collection Dataset
 
 The directory  `data/collections` hosts the dataset in the bug collection phase.
@@ -75,7 +106,6 @@ It is organized as follows:
   * `puppet_urls.csv`: Includes names and GitHub URLs of the obtained Puppet module repositories.
 * `data/collections/bugs/`: This directory holds CVS files containing GitHub or Jira URLs of the bugs identified after applying the bug collection (BG) step. Specifically:
   * `ansible_bugs.csv`: Contains URLs to GitHub issues of Ansible modules.
-  * `ansible_builtin_bugs.csv`: Contains URLs to GitHub issues of Ansible built-in modules.
   * `ansible_role_bugs.csv`: Contains URLs to GitHub issues of Ansible roles.
   * `chef_bugs.csv`: Documents bugs found in Chef cookbooks, including GitHub issue URLs for each identified bug.
   * `puppet_bugs.csv`: Contains Puppet module bugs, with links to their respective GitHub issues.
