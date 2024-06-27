@@ -16,8 +16,8 @@ Understanding Faults in Infrastructure as Code Ecosystems".
 - [Selected Bugs](#selected-bugs)
 - [Getting Started](#getting-started)
   - [Setup](#setup)
-  - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
-  - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
+    - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
+    - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
   - [Downloading Bug \& Fixes from Sources (Optional)](#downloading-bug--fixes-from-sources-optional)
     - [Collecting Puppet Module Repositories](#collecting-puppet-module-repositories)
     - [Collecting Chef Cookbook Repositories](#collecting-chef-cookbook-repositories)
@@ -159,7 +159,12 @@ which has the following structure:
 # Getting Started
 
 
-This section includes documentation and instruction in order to (1) setup the necessary environment in order to run our scripts, (2)  re-collecting  IaC bugs from the issue trackers of the projects of each ecosystem, namely Ansible, Chef and Puppet and (3) run the wualitative analysis of the sampled 360 bugs to produce the metrics sued to aanswer RQ4.
+This section provides detailed documentation and instructions to:
+
+1. Set up the necessary environment for running our scripts.
+2. Re-collect Infrastructure as Code (IaC) bugs from the issue trackers of projects within the Ansible, Chef, and Puppet ecosystems.
+3. Perform a quantitative analysis of the sampled 360 bugs to generate the metrics needed to answer Research Question 4 (RQ4).
+
 
 First, obtain the artifact by cloning the repository and navigating to the artifact's root directory:
 
@@ -170,10 +175,10 @@ First, obtain the artifact by cloning the repository and navigating to the artif
 
 ## Setup
 
-To replicate the environment needed to run our  scripts, you can choose between setting up a virtual environment directly on Ubuntu/Debian or using Docker, which is recommended.
+To replicate the environment needed to run our scripts, you can choose between setting up a virtual environment directly on Ubuntu/Debian or using Docker, which is recommended.
 
 
-## Option1: Ubuntu/Debian Installation
+### Option1: Ubuntu/Debian Installation
 
 You need to install some packages through  `apt`  to run the
 experiments of this artifact.
@@ -198,7 +203,7 @@ source .env/bin/activate
 pip3 install -r requirements.txt
 ```
 
-## Option2: Docker Image Installation (Recommended)
+### Option2: Docker Image Installation (Recommended)
 
 Use this option if you prefer a containerized environment or are not using an Ubuntu/Debian operating system.
 We provide a `Dockerfile` to build an image that contains:
