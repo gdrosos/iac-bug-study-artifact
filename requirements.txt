@@ -3,3 +3,5 @@ pandas
 numpy
 requests
 seaborn
+argparse
+regex

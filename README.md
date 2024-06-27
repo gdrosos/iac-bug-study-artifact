@@ -11,10 +11,9 @@ Understanding Faults in Infrastructure as Code Ecosystems".
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
-- [Getting Started](#getting-started)
 - [Bug Collection Dataset](#bug-collection-dataset)
 - [Selected Bugs](#selected-bugs)
-- [Getting Started](#getting-started-1)
+- [Getting Started](#getting-started)
   - [Setup](#setup)
   - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
   - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
@@ -65,15 +64,6 @@ and bug collection stages).
 
 * An installation of Python version **3.8+**.
 * (Optionally) A GitHub access token (see [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)) for interacting with the GitHub API. You will need this access token only if you decide to execute the qualitative analysis of our artifact.
-
-# Getting Started
-
-To install the required dependencies, please run:
-
-```bash
-python -m ensurepip --upgrade
-pip install -r requirements.txt
-```
 
 # Bug Collection Dataset
 
@@ -339,7 +329,7 @@ It then filters out issues that do not have at least one comment containing a UR
 ## Quantitative Analysis (Section 3.2) (Optional)
 
 Optionally, you can run the quantitative analysis of the 360 sampled bugs to produce the `data/quantitative_metrics.csv` which is used to answer RQ4 (See Section [Selected Bugs](#selected-bugs) for file contents).
-Simply run (Estimated Run Time: ~8 minutes, can increase depending on current GitHub API Rate Limit of given user):
+Simply run (Estimated Run Time: ~7 minutes, can increase depending on current GitHub API Rate Limit of given user):
 
 ```bash
 python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN \
@@ -348,14 +338,11 @@ python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN \
 Initially, the script retrieves the issue creation and resolution dates for each bug via the GitHub API and, for some Puppet issues, through the Jira REST API. Then, for each fix URL, it sends a GitHub API request to obtain metadata about the number and size in Lines of Code (LoC) of the files affected by the fix.
 
 
-In the remaining Sections, we will use the "pre-baked" data to produce the data shown in the Tables & Figures of the paper.
-
-
 # Step-by-Step Instructions
 
 In the following section, we provide instructions
 for reproducing the results
-presented in the paper using the data coming from the `data/` directory.
+presented in the paper using the "pre-baked" data coming from the `data/` directory.
 
 
 

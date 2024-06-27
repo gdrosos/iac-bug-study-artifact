@@ -7,7 +7,7 @@ ENV TZ=Europe/Zurich
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && \
     apt-get update -yqq && \
     apt-get upgrade -yqq && \
-    apt-get install -yqq git python3-pip sudo  python3-venv
+    apt-get install -yqq git python3-pip sudo wget python3-venv
 
 # Install Python packages from requirements.txt
 # Ensure requirements.txt is in the same directory as the Dockerfile when building
