@@ -78,4 +78,4 @@ if __name__ == "__main__":
 
 
     args = parser.parse_args()
-    main(args.output
+    main(args.output_csv)

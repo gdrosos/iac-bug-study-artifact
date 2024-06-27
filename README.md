@@ -225,10 +225,17 @@ The script for each ecosystem is invoked as follows:
 
 
 ```
-python scripts/fetch/fetch_issues.py data/collection_new/repositories/chef_urls.csv data/collection_new/bugs/chef_bugs.csv  $GH_TOKEN
-python scripts/fetch/fetch_issues.py data/collection_new/repositories/ansible_urls.csv data/collection_new/bugs/ansible_bugs.csv  $GH_TOKEN
-python scripts/fetch/fetch_issues.py data/collection_new/repositories/ansible_roles_urls.csv data/collection_newR/bugs/ansible_role_bugs.csv $GH_TOKEN
-python scripts/fetch/fetch_issues.py data/collection_new/repositories/puppet_urls.csv data/collection_new/bugs/puppet_bugs.csv  $GH_TOKEN
+python scripts/fetch/fetch_issues.py data/collection_new/repositories/chef_urls.csv \
+data/collection_new/bugs/chef_bugs.csv  $GH_TOKEN
+
+python scripts/fetch/fetch_issues.py data/collection_new/repositories/ansible_urls.csv \
+data/collection_new/bugs/ansible_bugs.csv $GH_TOKEN
+
+python scripts/fetch/fetch_issues.py data/collection_new/repositories/ansible_roles_urls.csv \
+data/collection_newR/bugs/ansible_role_bugs.csv $GH_TOKEN
+
+python scripts/fetch/fetch_issues.py data/collection_new/repositories/puppet_urls.csv \
+data/collection_new/bugs/puppet_bugs.csv  $GH_TOKEN
 ```
 
 
@@ -240,7 +247,9 @@ python scripts/fetch/fetch_fixed_puppet_jira_bugs.py $BASE_DIR/bugs/puppet_jira_
 
 This script fetches all closed issues in the Puppet Jira Issue Tracker([https://puppet.atlassian.net](https://puppet.atlassian.net)) using the query:
 ```
-jql = "project in (PUP, MODULES)  and type = Bug and status in (Closed, Resolved) ORDER BY created DESC
+project in (PUP, MODULES) 
+and type = Bug and status in (Closed, Resolved)
+ORDER BY created DESC
 ```
 It then filters out issues that do not have at least one comment containing a URL of a GitHub Commit or Pull Request indicating a potential fix, and stores the filtered issues in a CSV file named `data/collection_new/bugs/puppet_jira_bugs.csv`.
 
@@ -250,7 +259,8 @@ Optionally, you can run the quantitative analysis of the 360 sampled bugs to pro
 Simply run (Estimated Run Time: 1 hour, depending on current user GitHub API Rate Limit):
 
 ```bash
-python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN --output data/quantitative_metrics.csv
+python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN \
+ --output data/quantitative_metrics.csv
 ```
 Initially, the script retrieves the issue creation and resolution dates for each bug via the GitHub API and, for some Puppet issues, through the Jira REST API. Then, for each fix URL, it sends a GitHub API request to obtain metadata about the number and size in Lines of Code (LoC) of the files affected by the fix.
 
