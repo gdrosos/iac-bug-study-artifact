@@ -758,8 +758,11 @@ To adapt the artifact for collecting bugs from other IaC ecosystems, follow thes
 ### Modify Data Collection Scripts:
 
 Create a script similar to `fetch_puppet_repos.py`, `fetch_chef_repos.py`, or `fetch_ansible_repos.py` to collect other IaC module repositories.
-For example, to fetch Terraform modules, use the Terraform Registry API: https://registry.terraform.io/v1/modules.
-Example command to fetch Terraform repositories:
+
+For example, Terraform, a tool by HashiCorp, is used for building, changing, and versioning infrastructure safely and efficiently.
+For more details, visit [Terraform](https://www.terraform.io/).
+You can fetch Terraform modules using the Terraform Registry API: `https://registry.terraform.io/v1/modules`.
+Here’s an example command to fetch Terraform repositories:
 
 ```python
 import requests
@@ -768,9 +771,10 @@ data = response.json()
 # Process and save data to CSV similar to existing scripts
 ```
 
-On the same manner you want to target another ecosystem, like Salt, you can use the Salt Stack API: https://api.github.com/users/saltstack-formulas/repos
-and fetch GitHub repositories with the bellow command:
-
+Similarly, Salt, also known as SaltStack, is an open-source software used for event-driven IT automation, remote task execution, and configuration management.
+For more details, visit [SaltStack](https://saltproject.io/).
+You can fetch Salt repositories using the Salt Stack API: `https://api.github.com/users/saltstack-formulas/repos`
+Here’s an example command:
 
 ```python
 import requests
@@ -793,7 +797,7 @@ Use the entire dataset of bugs collected to perform large-scale studies, such as
 Adapt the data collection scripts to fetch form the REST-APIs additional metrics or dimensions for analysis.
 
 ### Analyzing Sampled Bug Dataset
-* Use the sample of 360 bugs to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom/ Root Cause/ System State categorizations performed in the study.
+Use the sample of 360 bugs to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom/ Root Cause/ System State categorizations performed in the study.
 
 
 ## Quantitative Analysis Scripts
