@@ -743,7 +743,7 @@ All                       1.01      0.00      1.84      0.00     12.00
 # Reusability Guide
 
 The purpose of this guide is to provide insights
-on how the artifact can be reused and adapted for different contexts,
+into how the artifact can be reused and adapted for different contexts,
 particularly for other Infrastructure as Code (IaC) ecosystems or even ecosystems beyond IaC.
 Below, we outline the core components of the artifact that can be evaluated for reusability
 and provide instructions on adapting the artifact to new inputs or use cases.
@@ -804,9 +804,9 @@ Root Cause or System State categorizations performed in the study.
 ## Quantitative Analysis Scripts
 
 
-In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC Ecosystems,
+In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC Ecosystems (e.g. Terraform or Salt),
 you should create a classification method that categorizes each file of a fix to a component category (e.g. based on its directory path or extension).
-For example, for Ansible we implemented the following function:
+For example, here is the function we implemented for Ansible:
 
 ```python
 def get_ansible_category(file_path):
@@ -832,8 +832,9 @@ def get_ansible_category(file_path):
         category = None
     return category
 ```
-Given a similar method for e.g. Terraform or Salt, researchers can use this script not only to measure the size in files and loc of their fixes but also group them by component category.
-
+By implementing a similar method for other ecosystems,
+researchers can utilize the `quantitative_analysis.py` script to measure the size of their fixes in terms of the number of files and lines of code (LoC),
+while also grouping them by component category.
 
 ## Limitations
 
