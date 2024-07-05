@@ -11,8 +11,6 @@ An archived version of the artifact is also available on Zenodo. See XXX
 
 
 
-- [When you Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems](#when-you-infrastructure-is-a-buggy-program-understanding-faults-in-infrastructure-as-code-ecosystems)
-- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Hardware Dependencies](#hardware-dependencies)
