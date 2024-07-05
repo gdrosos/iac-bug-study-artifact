@@ -39,13 +39,13 @@ An archived version of the artifact is also available on Zenodo. See XXX
     - [State Reachability](#state-reachability)
   - [RQ4: Bug Fixes (Section 4.4)](#rq4-bug-fixes-section-44)
 - [Reusability Guide](#reusability-guide)
-  - [Adapting the Artifact to New Inputs](#adapting-the-artifact-to-new-inputs)
+  - [Adapting the Artifact to New IaC Systems](#adapting-the-artifact-to-new-iac-systems)
     - [Modify Data Collection Scripts:](#modify-data-collection-scripts)
     - [Fetching Bugs from GitHub](#fetching-bugs-from-github)
+    - [Quantitative Analysis Scripts](#quantitative-analysis-scripts)
   - [Reusing Existing Datasets](#reusing-existing-datasets)
     - [Analyzing Initial Bug Dataset](#analyzing-initial-bug-dataset)
     - [Analyzing Sampled Bug Dataset](#analyzing-sampled-bug-dataset)
-  - [Quantitative Analysis Scripts](#quantitative-analysis-scripts)
   - [Limitations](#limitations)
 
 # Overview
@@ -747,9 +747,16 @@ into how the artifact can be reused and adapted for different contexts,
 particularly for other Infrastructure as Code (IaC) ecosystems or even ecosystems beyond IaC.
 Below, we outline the core components of the artifact that can be evaluated for reusability
 and provide instructions on adapting the artifact to new inputs or use cases.
+Specifically,
+we briefly explain how someone can modify and reuse our artifact to:
+(1) apply our bug analysis method (both qualitative and quantitative)
+to new IaC ecosystems (e.g., TerraForm,
+Salt),
+and (2) analyze the existing bug dataset for different purposes
+other than those presented in our paper.
 
 
-## Adapting the Artifact to New Inputs
+## Adapting the Artifact to New IaC Systems
 
 To adapt the artifact for collecting bugs from other IaC ecosystems, follow these steps:
 
@@ -786,25 +793,14 @@ data = response.json()
 ### Fetching Bugs from GitHub
 
 
-Use the existing `fetch_issues.py` script to collect issues from the GitHub repositories.
-Ensure you have a GitHub access token and adapt the script to fetch issues for the new repositories collected.
-
-
-## Reusing Existing Datasets
-
-### Analyzing Initial Bug Dataset
-The entire dataset of bugs collected can be used to perform large-scale studies, such as analyzing the evolution of bug characteristics over time.
-To do so you can adapt the data collection scripts to fetch from the corresponding REST-APIs additional metrics or dimensions for analysis.
-
-### Analyzing Sampled Bug Dataset
-The sample of the 360 studied bugs can be used to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom,
-Root Cause or System State categorizations performed in the study.
+Use the existing `fetch_issues.py` script to collect issues from the GitHub repositories collected by the previous step.
+Ensure you have a GitHub access token and adapt the script to fetch issues for the new repositories collected. @theosotr: Adapt how?
 
 
 ## Quantitative Analysis Scripts
 
 
-In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC Ecosystems (e.g. Terraform or Salt),
+In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC ecosystems (e.g. TerraForm or Salt),
 you should create a classification method that categorizes each file of a fix to a component category (e.g. based on its directory path or extension).
 For example, here is the function we implemented for Ansible:
 
@@ -835,6 +831,22 @@ def get_ansible_category(file_path):
 By implementing a similar method for other ecosystems,
 researchers can utilize the `quantitative_analysis.py` script to measure the size of their fixes in terms of the number of files and lines of code (LoC),
 while also grouping them by component category.
+
+
+## Reusing Existing Datasets
+
+### Analyzing Initial Bug Dataset
+The entire dataset of bugs collected can be used to perform large-scale studies
+other than that presented in our paper.
+For example, one can utilize our dataset to study
+the evolution of IaC bug characteristics over time.
+To do so you can adapt the data collection scripts to fetch
+from the corresponding REST-APIs additional metrics (@theosotr, such as?)
+or dimensions for analysis.
+
+### Analyzing Sampled Bug Dataset
+The sample of the 360 studied bugs can be used to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom, Root Cause or System State categorizations performed in the study.
+
 
 ## Limitations
 
