@@ -42,7 +42,7 @@ An archived version of the artifact is also available on Zenodo. See XXX
   - [Adapting the Artifact to New Inputs](#adapting-the-artifact-to-new-inputs)
     - [Modify Data Collection Scripts:](#modify-data-collection-scripts)
     - [Fetching Bugs from GitHub](#fetching-bugs-from-github)
-    - [Reusing Existing Datasets](#reusing-existing-datasets)
+  - [Reusing Existing Datasets](#reusing-existing-datasets)
     - [Analyzing Initial Bug Dataset](#analyzing-initial-bug-dataset)
     - [Analyzing Sampled Bug Dataset](#analyzing-sampled-bug-dataset)
   - [Quantitative Analysis Scripts](#quantitative-analysis-scripts)
@@ -786,7 +786,7 @@ Use the existing `fetch_issues.py` script to collect issues from the GitHub repo
 Ensure you have a GitHub access token and adapt the script to fetch issues for the new repositories collected.
 
 
-### Reusing Existing Datasets
+## Reusing Existing Datasets
 
 ### Analyzing Initial Bug Dataset
 Use the entire dataset of bugs collected to perform large-scale studies, such as analyzing the evolution of bug characteristics over time.
