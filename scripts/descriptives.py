@@ -52,13 +52,13 @@ def process_directory(directory):
                         else:
                             results[eco]['bugs'] += count_lines_in_csv(os.path.join(root, file))
 
-    print(f"{'Ecosystem':<12}{'Total Repositories':<20}{'Total Issues':<15}{'Oldest':<25}{'Most Recent':<25}{'Config. Unit Bugs':<18}{'IaC Program Bugs':<18}")
+    print(f"{'Ecosystem':<12}{'Total Repositories':<20}{'Total Issues':<15}{'Oldest':<15}{'Most Recent':<15}{'Config. Unit Bugs':<20}{'IaC Program Bugs':<20}")
     for eco in results:
         print(f"{eco:<12}{results[eco]['repositories']:<20}{results[eco]['bugs']:<15}"
-              f"{oldest_issue[eco].strftime('%d %b %Y') if eco in oldest_issue else 'N/A':<25}"
-              f"{most_recent_issue[eco].strftime('%d %b %Y') if eco in most_recent_issue else 'N/A':<25}"
-              f"{bugs_counts_per_ecosystem.loc[eco, 'Code'] if eco in bugs_counts_per_ecosystem.index else 0:<18}"
-              f"{bugs_counts_per_ecosystem.loc[eco, 'Configuration'] if eco in bugs_counts_per_ecosystem.index else 0:<18}")
+              f"{oldest_issue[eco].strftime('%d %b %Y') if eco in oldest_issue else 'N/A':<15}"
+              f"{most_recent_issue[eco].strftime('%d %b %Y') if eco in most_recent_issue else 'N/A':<15}"
+              f"{bugs_counts_per_ecosystem.loc[eco, 'Code'] if eco in bugs_counts_per_ecosystem.index else 0:<20}"
+              f"{bugs_counts_per_ecosystem.loc[eco, 'Configuration'] if eco in bugs_counts_per_ecosystem.index else 0:<20}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

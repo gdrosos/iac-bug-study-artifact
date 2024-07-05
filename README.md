@@ -9,9 +9,13 @@ An archived version of the artifact is also available on Zenodo. See XXX
 
 # Table of Contents
 
+
+
+- [When you Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems](#when-you-infrastructure-is-a-buggy-program-understanding-faults-in-infrastructure-as-code-ecosystems)
+- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
-- [Hardware Requirements](#hardware-requirements)
+- [Hardware Dependencies](#hardware-dependencies)
 - [Bug Collection Dataset](#bug-collection-dataset)
 - [Description of Selected Bugs](#description-of-selected-bugs)
 - [Getting Started](#getting-started)
@@ -244,7 +248,7 @@ pip3 install -r requirements.txt
 
 ## Downloading Bug & Fixes from Sources (Optional)
 
-In this section, we provide instructions on collecting the IaC bugs and their fixes which correspond to Section 3.1 of our paper. The data already exist in the `data/collection` directory (see [Bug Collection Dataset](#bug-collection-dataset) for dataset details), however bellow we describe how you can obtain this dataset from scratch, and store the corresponding files in a new directory (e.g. ``data/collection_new`).s
+In this section, we provide instructions on collecting the IaC bugs and their fixes which correspond to Section 3.1 of our paper. The data already exist in the `data/collection` directory (see [Bug Collection Dataset](#bug-collection-dataset) for dataset details), however bellow we describe how you can obtain this dataset from scratch, and store the corresponding files in a new directory (e.g. ``data/collection_new`)
 
 **NOTE #1**: This step requires approximately 24 hours. For this reason, we already provide you with the "pre-baked" data of the selected bugs used in our study, along with the proposed categorization (see the directory `data/`). However, if you still want to re-fetch the bugs from the corresponding sources and create the initial bug dataset on your own, please continue reading this section. Otherwise, you can go directly to the next Section ([Quantitative Analysis](#quantitative-analysis-section-32-optional)).
 
@@ -404,10 +408,10 @@ python scripts/descriptives.py data
 The above script prints the following:
 
 ```
-Ecosystem   Total Repositories  Total Issues   Oldest                   Most Recent              Config. Unit Bugs IaC Program Bugs  
-Puppet      7471                6750           06 Aug 2013              02 Feb 2023              42                78                
-Ansible     35236               16916          19 Sep 2014              03 Oct 2023              94                26                
-Chef        2818                1141           23 Aug 2011              09 Mar 2023              76                44              
+Ecosystem   Total Repositories  Total Issues   Oldest         Most Recent    Config. Unit Bugs   IaC Program Bugs    
+Puppet      7471                6750           06 Aug 2013    02 Feb 2023    42                  78                  
+Ansible     35236               16916          19 Sep 2014    03 Oct 2023    94                  26                  
+Chef        2818                1141           23 Aug 2011    09 Mar 2023    76                  44              
 ```
 
 ## RQ1: Symptoms (Section 4.1)
@@ -559,21 +563,21 @@ python scripts/rq3.py data/bugs.csv --os
 The above script will produce the following table:
 
 ```
-Category                          Version Agnostic                  Version Dependent   Total               
-----------------------------------------------------------------------------------------------------
-Debian Family                     16                                15                  31                  
-RedHat Family                     13                                14                  27                  
-Other Linux                       3                                 0                   3                   
-----------------------------------------------------------------------------------------------------
-Total Linux (Subtotal)            32                                29                  61                  
-Windows                           16                                2                   18                  
-Other OS                          4                                 2                   6                   
-----------------------------------------------------------------------------------------------------
-Total OS Sensitive (Subtotal)     52                                33                  85                  
-Single OS Support                 37                                0                   37                  
-Multiple OS Support               238                               0                   238                 
-----------------------------------------------------------------------------------------------------
-Grand Total                       327                               33                  360                 
+Category                          Version Agnostic    Version Dependent   Total               
+--------------------------------------------------------------------------------
+Debian Family                     16                  15                  31                  
+RedHat Family                     13                  14                  27                  
+Other Linux                       3                   0                   3                   
+--------------------------------------------------------------------------------
+Total Linux (Subtotal)            32                  29                  61                  
+Windows                           16                  2                   18                  
+Other OS                          4                   2                   6                   
+--------------------------------------------------------------------------------
+Total OS Sensitive (Subtotal)     52                  33                  85                  
+Single OS Support                 37                  0                   37                  
+Multiple OS Support               238                 0                   238                 
+--------------------------------------------------------------------------------
+Grand Total                       327                 33                  360    
 ```
 
 ### State Reachability
