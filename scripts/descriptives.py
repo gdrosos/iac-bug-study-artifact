@@ -6,7 +6,8 @@ import sys
 def count_lines_in_csv(filepath):
     """Count the lines in a CSV file, ignoring the header."""
     with open(filepath, 'r') as file:
-        return sum(1 for line in file) - 1 
+        return sum(1 for line in file) - 1
+
 
 def read_and_process_rq4_csv(filepath):
     """Read quantitative_metrics.csv and process it for statistics."""
@@ -17,6 +18,7 @@ def read_and_process_rq4_csv(filepath):
     oldest_issue = grouped['Created At'].min()
     most_recent_issue = grouped['Created At'].max()
     return oldest_issue, most_recent_issue
+
 
 def process_bugs_csv(filepath):
     """Process bugs.csv for counts of Configuration Unit and IaC Program bugs per Ecosystem."""

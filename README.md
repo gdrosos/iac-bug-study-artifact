@@ -4,20 +4,20 @@ This is the artifact for the conditionally accepted paper submitted to OOPSLA'24
 "When you Infrastructure is a Buggy Program:
 Understanding Faults in Infrastructure as Code Ecosystems".
 
+An archived version of the artifact is also available on Zenodo. See XXX
+
 
 # Table of Contents
 
-- [When you Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems](#when-you-infrastructure-is-a-buggy-program-understanding-faults-in-infrastructure-as-code-ecosystems)
-- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
-- [Hardware Dependencies](#hardware-dependencies)
+- [Hardware Requirements](#hardware-requirements)
 - [Bug Collection Dataset](#bug-collection-dataset)
-- [Selected Bugs](#selected-bugs)
+- [Description of Selected Bugs](#description-of-selected-bugs)
 - [Getting Started](#getting-started)
   - [Setup](#setup)
-    - [Option1: Ubuntu/Debian Installation](#option1-ubuntudebian-installation)
-    - [Option2: Docker Image Installation (Recommended)](#option2-docker-image-installation-recommended)
+    - [Option1: Docker Image Installation (Recommended)](#option1-docker-image-installation-recommended)
+    - [Option2: Ubuntu/Debian Installation](#option2-ubuntudebian-installation)
   - [Downloading Bug \& Fixes from Sources (Optional)](#downloading-bug--fixes-from-sources-optional)
     - [Collecting Puppet Module Repositories](#collecting-puppet-module-repositories)
     - [Collecting Chef Cookbook Repositories](#collecting-chef-cookbook-repositories)
@@ -89,24 +89,29 @@ Moreover, the following hardware requirements should be met:
 
 - **Disk Space (Optional)**: 
   - A minimum of 20 MB of available disk space is required
-  
+ 
 # Bug Collection Dataset
 
-The directory  `data/collections` hosts the dataset in the bug collection phase.
-It is organized as follows:
-* `data/collections/repositories/`: This subdirectory houses the data obtained after the repository collection (RP) step. Specifically:
+The directory  `data/collections` hosts the dataset
+that stems from the the bug collection phase of our methodology.
+Our dataset is organized as follows:
+* `data/collections/repositories/`: This subdirectory houses the data
+obtained after the repository collection (RP) step (see Section 3.1 of our paper
+for more details). Specifically:
   * `ansible_roles.csv`: Lists the GitHub URLs of the collected Ansible roles.
   * `ansible_urls.csv`: Provides module names alongside their corresponding GitHub URLs of the collected Ansible modules.
   * `chef_urls.csv`: Details the names of Chef cookbooks and their respective GitHub URLs.
   * `puppet_urls.csv`: Includes names and GitHub URLs of the obtained Puppet module repositories.
-* `data/collections/bugs/`: This directory holds CVS files containing GitHub or Jira URLs of the bugs identified after applying the bug collection (BG) step. Specifically:
+* `data/collections/bugs/`: This directory holds CVS files containing GitHub or Jira URLs of the bugs identified after applying the bug collection (BG) step
+(see Section 3.1 of our paper for more details).
+Specifically:
   * `ansible_bugs.csv`: Contains URLs to GitHub issues of Ansible modules.
   * `ansible_role_bugs.csv`: Contains URLs to GitHub issues of Ansible roles.
   * `chef_bugs.csv`: Documents bugs found in Chef cookbooks, including GitHub issue URLs for each identified bug.
   * `puppet_bugs.csv`: Contains Puppet module bugs, with links to their respective GitHub issues.
   * `puppet_jira_bugs.csv`: Specifically lists Puppet bugs tracked through JIRA, with issue URLs.
 
-# Selected Bugs
+# Description of Selected Bugs
 
 Now, we provide details regarding the 360 IaC bugs
 studied in our paper.
@@ -116,22 +121,24 @@ which has the following structure:
 * `data/bugs.csv`: This document contains all 360 bugs examined in our study
                     and their categorization.
                     Each bug row has the following fields:
-    * `Issue URL`: The url of the issue report.     
+    * `Issue URL`: The url of the issue report. 
     * `Fix URL`: The url of the GitHub commit or Pull Request of the fix. 
     * `Ecosystem`: The IaC ecosystem of the bug.
     * `Symptom`: The bug's symptom.
     * `Root Cause`: The bug's symptom.
-    * `Operating System/Platform`:  `Independent` if the bug is reproducible across multiple supported Operating Systems
-    In cases the bug is reproduced only on one OS, this OS is included.
+    * `Operating System/Platform`:  `Independent` if the bug is reproducible across multiple supported operating systems (OSs).
+    In cases the bug is reproduced only on one OS,
+    this specific OS is included.
     * `OS Sensitivity`: Indicates whether the bug is OS-sensitive (for details, see Section 4.3.1 of the paper)
     Its value has the following options:
     `Insensitive` if the bug is os-insensitive. In case the bug is os sensitive, the value has the format of:
      `operating_system_name(True)` in case the bug is version sensitive, or  `operating_system_name(Fasle)` otherwise,
-     where the `operating_system_name` is the name of the os to which the bug is reproducible.
+     where the `operating_system_name` is the name of the OS to which the bug is reproducible.
     * `System State`: The system state reachability of the bug. (e.g. `State agnostic`, `Unmanaged state` or `Managed state`)
     * `System State Observations`: In case the bug is state-dependent, this attribute includes the specific system state requirements.
-    Multiple values are separated by semicolons.
-    * `Test Input`: The test input characteristics of the bug. Multiple values are separated by semicolons.
+    **NOTE:** Multiple values are separated by semicolons.
+    * `Test Input`: The test input characteristics of the bug.
+    **NOTE:** Multiple values are separated by semicolons.
     * `Component`: The component in which the bug is located. (e.g. `Code` for Configuration Units  or `Configuration` for `IaC Programs`)
 
 
@@ -155,7 +162,6 @@ which has the following structure:
   * `Template Unit Lines Removed`: The number of lines removed from template unit files during the fix.
 
 
-
 # Getting Started
 
 
@@ -177,33 +183,7 @@ First, obtain the artifact by cloning the repository and navigating to the artif
 
 To replicate the environment needed to run our scripts, you can choose between setting up a virtual environment directly on Ubuntu/Debian or using Docker, which is recommended.
 
-
-### Option1: Ubuntu/Debian Installation
-
-You need to install some packages through  `apt`  to run the
-experiments of this artifact.
-First, install git, python, pip and python3-venv:
-
-```bash
-sudo apt update
-sudo apt install git python3 python3-pip python3-venv
-```
-
-**Important Note**
-For convenience, throughout the documentation and scripts, we use the standard python command instead of python3. To ensure compatibility, please create a symbolic link to point python to python3 by running the following command:
-```bash
-ln -s /usr/bin/python3 /usr/bin/python
-```
-
-You also need to install some Python packages.
-In a Python `virtualenv` run the following:
-```bash
-python -m venv .env
-source .env/bin/activate
-pip3 install -r requirements.txt
-```
-
-### Option2: Docker Image Installation (Recommended)
+### Option1: Docker Image Installation (Recommended)
 
 Use this option if you prefer a containerized environment or are not using an Ubuntu/Debian operating system.
 We provide a `Dockerfile` to build an image that contains:
@@ -236,6 +216,31 @@ After executing the command, you will be able to enter the home directory
 
 
 This setup uses volume mounting (-v) to ensure that scripts, data, and figures directories are persisted outside of the container for ease of access and modification on your local machine (e.g. they will not be lost upon the container's exit).
+
+### Option2: Ubuntu/Debian Installation
+
+You need to install some packages through  `apt`  to run the
+experiments of this artifact.
+First, install git, python, pip and python3-venv:
+
+```bash
+sudo apt update
+sudo apt install git python3 python3-pip python3-venv
+```
+
+**Important Note**
+For convenience, throughout the documentation and scripts, we use the standard python command instead of python3. To ensure compatibility, please create a symbolic link to point python to python3 by running the following command:
+```bash
+ln -s /usr/bin/python3 /usr/bin/python
+```
+
+You also need to install some Python packages.
+In a Python `virtualenv` run the following:
+```bash
+python -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
+```
 
 ## Downloading Bug & Fixes from Sources (Optional)
 
@@ -348,14 +353,36 @@ It then filters out issues that do not have at least one comment containing a UR
 
 ## Quantitative Analysis (Section 3.2) (Optional)
 
-Optionally, you can run the quantitative analysis of the 360 sampled bugs to produce the `data/quantitative_metrics.csv` which is used to answer RQ4 (See Section [Selected Bugs](#selected-bugs) for file contents).
-Simply run (Estimated Run Time: ~7 minutes, can increase depending on current GitHub API Rate Limit of given user):
+**IMPORTANT NOTE**:
+In order to complete this step you need to create a
+GitHub access token (see [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)).
+Once you obtain it,
+please assign it to a shell variable named `GH_TOKEN`.
+
+```bash
+export GH_TOKEN=<your GitHub access token>
+```
+
+You can run the quantitative analysis of the 360 sampled bugs to produce the `data/quantitative_metrics.csv` which is used to answer RQ4 (
+see Section [Selected Bugs](#selected-bugs) for
+more details about the selected bugs).
+The estimated running time of our qualitative analysis is around 7 minutes,
+but this time can vary depending on the current GitHub API
+rate limit:
 
 ```bash
 python scripts/quantitative_analysis.py data/bugs.csv $GH_TOKEN \
  --output data/quantitative_metrics.csv
 ```
-Initially, the script retrieves the issue creation and resolution dates for each bug via the GitHub API and, for some Puppet issues, through the Jira REST API. Then, for each fix URL, it sends a GitHub API request to obtain metadata about the number and size in Lines of Code (LoC) of the files affected by the fix.
+Initially, the script retrieves the issue creation and resolution dates for each bug via the GitHub API and, for some Puppet issues, through the Jira REST API.
+Then, for each fix URL, it sends a GitHub API request to obtain
+metadata about the number and size (in terms of Lines of Code -- LoC)
+of the files affected by the fix.
+These results can be found in the resulting
+`data/quantitative_metrics.csv` file.
+This file is further used by our scripts to answer RQ4
+(see our [step-by-step instructions](#step-by-step-instructions)
+for more details).
 
 
 # Step-by-Step Instructions
@@ -365,11 +392,10 @@ for reproducing the results
 presented in the paper using the "pre-baked" data coming from the `data/` directory.
 
 
-
  ## Collecting Bugs & Fixes (Section 3.1)
 
 Run this script to produce the descriptive statistics of our bug collection and analysis,
-and more specifically the data shown in Table 2.
+and more specifically the data shown in Table 2 of our paper.
 
 ```bash
 python scripts/descriptives.py data
@@ -396,7 +422,8 @@ python scripts/rq1.py data/bugs.csv --output figures/symptoms_comp.pdf
 
 The above script produces
 Figure 4, which is stored in the`symptoms_comp.pdf` file in the `figures/` directory.
-The script also prints the distribution of symptoms for each IaC Component in a tabular format.
+The script also prints the distribution of symptoms for each IaC component
+in a tabular format.
 Specifically, it prints
 the following:
 
@@ -414,13 +441,14 @@ Configuration unit              Performance issue          5      2.36%
        IaC program               Misconfiguration         61     41.22%
 ```
 
-Optionally, to also observe the distribution of symptoms per Ecosystem, run:
+Optionally, to also observe the distribution of symptoms per IaC ecosystem,
+run:
 
 ```bash
 python scripts/rq1.py data/bugs.csv --ecosystem
 ```
 
-The above script prints the distribution of symptoms for each Ecosystem in a tabular format.
+The above script prints the distribution of symptoms for each ecosystem in a tabular format.
 Specifically, it prints:
 ```
 Ecosystem                        Symptom  Frequency Percentage
@@ -445,14 +473,15 @@ Ecosystem                        Symptom  Frequency Percentage
 
 ## RQ2: Root Causes (Section 4.2)
 
-For the second research question, we compute the per Ecosystem distribution
-of causes for bugs found in Configuration Units.
-The below script produces Figures 6a and 6b.
+For the second research question,
+we compute the distribution of bug causes
+per ecosystem. At first,
+we consider only bugs found in configuration units.
+The below script produces Figure 6a of our paper.
 As in the first research question,
 our script also reports the distributions
 in a tabular format.
 
-To produce Figure 6a, simply run:
 ```bash
  python scripts/rq2.py data/bugs.csv --component conf --output figures/root_causes_conf.pdf
 ```
@@ -482,7 +511,9 @@ Ecosystem     Root Cause Category  Frequency Percentage
    Puppet     State handling bugs         10     23.81%
 ```
 
-In the same manner, to produce Figure 7b run the following command:
+In the same manner, to produce Figure 6b,
+which considers bugs found in IaC programs,
+run the following command:
 
 ```bash
 python scripts/rq2.py data/bugs.csv --component iac --output figures/root_causes_iac.pdf
@@ -565,7 +596,8 @@ Configuration unit Unmanaged state         95     44.81%
        IaC program Unmanaged state         24     16.22%
 ```
 
-To produce the second Plot of Figure 10, which represents the system state requirements of state dependent bugs,
+To produce the second plot of Figure 10,
+which represents the system state requirements of state dependent bugs,
 run:
 
 ```bash
@@ -587,7 +619,8 @@ Requirements  Frequency
  Remote host          9
 ```
 
-Moreover, to produce Table 3, which depicts the five most frequent input types appearing in the bug-triggering test cases, simply run:
+Moreover, to produce Table 3 of our paper,
+which depicts the five most frequent input types appearing in the bug-triggering test cases, simply run:
 
 ```bash
  python scripts/rq3.py data/bugs.csv --test_inputs
@@ -605,7 +638,9 @@ Authentication (token, login info)  10%
 Command (shell)                     4%
 ```
 
-Finally, to reproduce the distribution numbers of state reachability across ecosystems, (Section 4.3.4), simply run:
+Finally, to reproduce the distribution numbers of
+state reachability across ecosystems (Section 4.3.4),
+simply run:
 
 
 ```bash
