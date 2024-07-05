@@ -1,4 +1,4 @@
-# When you Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems
+# When your Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems
 
 This is the artifact for the conditionally accepted paper submitted to OOPSLA'24 titled:
 "When you Infrastructure is a Buggy Program:
@@ -11,6 +11,8 @@ An archived version of the artifact is also available on Zenodo. See XXX
 
 
 
+- [When your Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems](#when-your-infrastructure-is-a-buggy-program-understanding-faults-in-infrastructure-as-code-ecosystems)
+- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Hardware Dependencies](#hardware-dependencies)
@@ -36,6 +38,15 @@ An archived version of the artifact is also available on Zenodo. See XXX
     - [Operating System Requirements](#operating-system-requirements)
     - [State Reachability](#state-reachability)
   - [RQ4: Bug Fixes (Section 4.4)](#rq4-bug-fixes-section-44)
+- [Reusability Guide](#reusability-guide)
+  - [Adapting the Artifact to New Inputs](#adapting-the-artifact-to-new-inputs)
+    - [Modify Data Collection Scripts:](#modify-data-collection-scripts)
+    - [Fetching Bugs from GitHub](#fetching-bugs-from-github)
+    - [Reusing Existing Datasets](#reusing-existing-datasets)
+    - [Analyzing Initial Bug Dataset](#analyzing-initial-bug-dataset)
+    - [Analyzing Sampled Bug Dataset](#analyzing-sampled-bug-dataset)
+  - [Quantitative Analysis Scripts](#quantitative-analysis-scripts)
+  - [Limitations](#limitations)
 
 # Overview
 
@@ -727,3 +738,99 @@ IaC program               0.87      0.00      1.71      0.00     12.00
 All                       1.01      0.00      1.84      0.00     12.00
 ----------------------------------------------------------------------
 ```
+
+
+# Reusability Guide
+
+The purpose of this guide is to provide insights
+on how the artifact can be reused and adapted for different contexts,
+particularly for other Infrastructure as Code (IaC) ecosystems or even ecosystems beyond IaC.
+Below, we outline the core components of the artifact that can be evaluated for reusability
+and provide instructions on adapting the artifact to new inputs or use cases.
+
+
+## Adapting the Artifact to New Inputs
+
+To adapt the artifact for collecting bugs from other IaC ecosystems, follow these steps:
+
+
+
+### Modify Data Collection Scripts:
+
+Create a script similar to `fetch_puppet_repos.py`, `fetch_chef_repos.py`, or `fetch_ansible_repos.py` to collect other IaC module repositories.
+For example, to fetch Terraform modules, use the Terraform Registry API: https://registry.terraform.io/v1/modules.
+Example command to fetch Terraform repositories:
+
+```
+import requests
+response = requests.get('https://registry.terraform.io/v1/modules')
+data = response.json()
+# Process and save data to CSV similar to existing scripts
+```
+
+On the same manner you want to target another ecosystem, like Salt, you can use the Salt Stack API: https://api.github.com/users/saltstack-formulas/repos
+and fetch GitHub repositories with the bellow command:
+
+
+```
+import requests
+response = requests.get('https://api.github.com/users/saltstack-formulas/repos')
+data = response.json()
+# Process and save data to CSV similar to existing scripts
+```
+
+### Fetching Bugs from GitHub
+
+
+Use the existing `fetch_issues.py` script to collect issues from the GitHub repositories.
+Ensure you have a GitHub access token and adapt the script to fetch issues for the new repositories collected.
+
+
+### Reusing Existing Datasets
+
+### Analyzing Initial Bug Dataset
+Use the entire dataset of bugs collected to perform large-scale studies, such as analyzing the evolution of bug characteristics over time.
+Adapt the data collection scripts to fetch form the REST-APIs additional metrics or dimensions for analysis.
+
+### Analyzing Sampled Bug Dataset
+* Use the sample of 360 bugs to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom/ Root Cause/ System State categorizations performed in the study.
+
+
+## Quantitative Analysis Scripts
+
+
+In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC Ecosystems,
+you should create a classification method  that categorises each file of a fix to a component category based on its extension.
+For example, for Ansible we implemented the following function:
+
+```
+def get_ansible_category(file_path):
+    """
+    Classifies Ansible-related files into categories based on their file paths.
+    Parameters:
+    - file_path (str): The path of the file within the Ansible repository.
+    Returns:
+    - str: The category of the file ('config_units', 'iac_program_units', 'test_units', 'template_units', or None).
+    """
+    if any(x in file_path for x in ['test/', "tests/", 'molecule']):
+        category = 'test_units'
+    elif any(substring in file_path for substring in ["changelog", "doc/", "docs/"]) or file_path.endswith('.md') or file_path.endswith('.bugfix') or file_path.endswith('.rst'):
+        category = None
+    elif "modules" in file_path or  file_path.endswith('.py'):
+        category = 'config_units'
+    elif "templates/" in file_path:
+        category = 'template_units'
+    elif file_path.endswith('.yaml') or file_path.endswith('.yml') or "roles" in file_path or "files/"in file_path:
+        category = 'iac_program_units'
+    else:
+        print(f"Unclassified file: {file_path}")
+        category = None
+    return category
+```
+Given a similar method for e.g. Terraform or Salt, researches can use this script not only to measure the size in files and loc of their fixes but also group them by component category.
+
+
+## Limitations
+
+* The artifact is primarily designed for analyzing IaC ecosystems. While it can be adapted for other ecosystems, some domain-specific adjustments may be necessary.
+* The reusability of the scripts depends on the consistency and availability of APIs for data collection in the new ecosystems.
