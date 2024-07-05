@@ -761,7 +761,6 @@ other than those presented in our paper.
 To adapt the artifact for collecting bugs from other IaC ecosystems, follow these steps:
 
 
-
 ### Modify Data Collection Scripts:
 
 Create a script similar to `fetch_puppet_repos.py`, `fetch_chef_repos.py`, or `fetch_ansible_repos.py` to collect other IaC module repositories.
@@ -794,7 +793,8 @@ data = response.json()
 
 
 Use the existing `fetch_issues.py` script to collect issues from the GitHub repositories collected by the previous step.
-Ensure you have a GitHub access token and adapt the script to fetch issues for the new repositories collected. @theosotr: Adapt how?
+Ensure you have a GitHub access token and adapt the script to fetch issues for the
+newly-collected repositories. @theosotr: Adapt how?
 
 
 ## Quantitative Analysis Scripts
