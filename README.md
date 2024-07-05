@@ -761,7 +761,7 @@ Create a script similar to `fetch_puppet_repos.py`, `fetch_chef_repos.py`, or `f
 For example, to fetch Terraform modules, use the Terraform Registry API: https://registry.terraform.io/v1/modules.
 Example command to fetch Terraform repositories:
 
-```
+```python
 import requests
 response = requests.get('https://registry.terraform.io/v1/modules')
 data = response.json()
@@ -772,7 +772,7 @@ On the same manner you want to target another ecosystem, like Salt, you can use 
 and fetch GitHub repositories with the bellow command:
 
 
-```
+```python
 import requests
 response = requests.get('https://api.github.com/users/saltstack-formulas/repos')
 data = response.json()
@@ -803,7 +803,7 @@ In order to adapt the `quantitative_analysis.py` script to perform the qualitati
 you should create a classification method  that categorises each file of a fix to a component category based on its extension.
 For example, for Ansible we implemented the following function:
 
-```
+```python
 def get_ansible_category(file_path):
     """
     Classifies Ansible-related files into categories based on their file paths.
