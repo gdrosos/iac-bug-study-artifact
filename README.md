@@ -771,7 +771,7 @@ data = response.json()
 # Process and save data to CSV similar to existing scripts
 ```
 
-Similarly, Salt, also known as SaltStack, is an open-source software used for event-driven IT automation, remote task execution, and configuration management.
+Similarly, Salt, also known as SaltStack, is an open-source technology used for event-driven IT automation, remote task execution, and configuration management.
 For more details, visit [SaltStack](https://saltproject.io/).
 You can fetch Salt repositories using the Salt Stack API: `https://api.github.com/users/saltstack-formulas/repos`
 Here’s an example command:
@@ -793,18 +793,19 @@ Ensure you have a GitHub access token and adapt the script to fetch issues for t
 ## Reusing Existing Datasets
 
 ### Analyzing Initial Bug Dataset
-Use the entire dataset of bugs collected to perform large-scale studies, such as analyzing the evolution of bug characteristics over time.
-Adapt the data collection scripts to fetch form the REST-APIs additional metrics or dimensions for analysis.
+The entire dataset of bugs collected can be used to perform large-scale studies, such as analyzing the evolution of bug characteristics over time.
+To do so you can adapt the data collection scripts to fetch from the corresponding REST-APIs additional metrics or dimensions for analysis.
 
 ### Analyzing Sampled Bug Dataset
-Use the sample of 360 bugs to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom/ Root Cause/ System State categorizations performed in the study.
+The sample of the 360 studied bugs can be used to study and categorize additional dimensions (e.g. Test Oracles/ Types of Fix) and investigate their correlation with the Symptom,
+Root Cause or System State categorizations performed in the study.
 
 
 ## Quantitative Analysis Scripts
 
 
 In order to adapt the `quantitative_analysis.py` script to perform the qualitative analysis for RQ4 for other IaC Ecosystems,
-you should create a classification method  that categorises each file of a fix to a component category based on its extension.
+you should create a classification method that categorizes each file of a fix to a component category (e.g. based on its directory path or extension).
 For example, for Ansible we implemented the following function:
 
 ```python
@@ -831,7 +832,7 @@ def get_ansible_category(file_path):
         category = None
     return category
 ```
-Given a similar method for e.g. Terraform or Salt, researches can use this script not only to measure the size in files and loc of their fixes but also group them by component category.
+Given a similar method for e.g. Terraform or Salt, researchers can use this script not only to measure the size in files and loc of their fixes but also group them by component category.
 
 
 ## Limitations
