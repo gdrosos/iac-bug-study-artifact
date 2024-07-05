@@ -4,7 +4,7 @@ This is the artifact for the conditionally accepted paper submitted to OOPSLA'24
 "When you Infrastructure is a Buggy Program:
 Understanding Faults in Infrastructure as Code Ecosystems".
 
-An archived version of the artifact is also available on Zenodo. See XXX
+An archived version of the artifact is also available on Zenodo. See [https://doi.org/10.5281/zenodo.12668894](https://doi.org/10.5281/zenodo.12668894)[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12668895.svg)](https://doi.org/10.5281/zenodo.12668895).
 
 
 # Table of Contents
