@@ -1,8 +1,7 @@
 # When your Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems
 
 This is the artifact for the conditionally accepted paper submitted to OOPSLA'24 titled:
-"When you Infrastructure is a Buggy Program:
-Understanding Faults in Infrastructure as Code Ecosystems".
+"When you Infrastructure is a Buggy Program: Understanding Faults in Infrastructure as Code Ecosystems".
 
 An archived version of the artifact is also available on Zenodo. See [https://doi.org/10.5281/zenodo.12668894](https://doi.org/10.5281/zenodo.12668894)[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12668895.svg)](https://doi.org/10.5281/zenodo.12668895).
 
@@ -610,7 +609,7 @@ Configuration unit Unmanaged state         95     44.81%
 ```
 
 To produce the second plot of Figure 10,
-which represents the system state requirements of state dependent bugs,
+which represents the system state requirements of state dependent bugs with unmanaged state,
 run:
 
 ```bash
@@ -621,14 +620,14 @@ The above command produces the figure `figures/system_state.pdf` (Figure 10b)
 and prints the following table in the standard output:
 
 ```
-Distribution of system state requirements of state dependent bugs:
+Distribution of system state requirements of state dependent bugs with unmanaged state:
 ----------------------------------------
 Requirements  Frequency
-     Service         79
-        File         60
-       Other         51
-     Package         33
- IaC Runtime         19
+        File         52
+     Service         40
+       Other         20
+ IaC Runtime         18
+     Package         16
  Remote host          9
 ```
 

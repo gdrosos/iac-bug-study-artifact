@@ -188,6 +188,7 @@ def plot_not_managed(dataframe, output):
     }
 
     elements = defaultdict(lambda: 0)
+    dataframe = dataframe[dataframe['System state'] == "Unmanaged state"]
     for i in dataframe['System State Observations'].dropna():
         requirements = i.replace("; ", ";").split(";")
         freqs = set()
@@ -205,7 +206,7 @@ def plot_not_managed(dataframe, output):
     df2 = pd.DataFrame(data)
     df2['Frequency'] = df2['Frequency'].astype(int)
     df_sorted = df2.sort_values('Frequency', ascending=False)
-    print("Distribution of system state requirements of state dependent bugs:")
+    print("Distribution of system state requirements of state dependent bugs with unmanaged state:")
     print('-'*40)
     print(df_sorted.to_string(index=False))
     plt.subplots_adjust(bottom=0.1, top=0.9)
